@@ -17,7 +17,7 @@ const chalk = require('chalk');
 const inquirer = require("inquirer");
 const figlet = require('figlet');
 const { printHeader } = require('./common')
-
+const checkVersion = require('./feature/checkVersion')
 // var prompt = inquirer.createPromptModule();
 
 /*----------- config ----------*/
@@ -32,6 +32,11 @@ program
 program
   .command('init')
   .description('create new modular-kit project.')
+  .action(() => {
+    checkVersion()
+  })  
+program
+  .command('check')
   .action(() => {
     console.log()
   })  
