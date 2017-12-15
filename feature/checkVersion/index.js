@@ -1,24 +1,42 @@
-const gitPackageJson = require("git-package-json")
+const gitPackageJson = require('git-package-json')
+const columnify = require('columnify')
+const chalk = require('chalk')
+const setConfig = require('../../config/configModular.js')
 
-gitPackageJson("https://github.com/IonicaBizau/git-package-json", function (err, data) {
-    console.log(err || data);
-    // { name: 'git-stats',
-    //   version: '2.9.2',
-    //   description: 'Local git statistics including GitHub-like contributions calendars.',
-    //   main: 'lib/index.js',
-    //   ...
-    //   _id: 'git-stats@2.9.2' }
-});
+const checkVersion = () => {
+    
+    const listDependencies = []
+    const getPackage = setConfig()
+    const fnCheck = () => new Promise((resolve, reject) => {
+        
+    })
+    getPackage.map(url => gitPackageJson(url, function (err, data) {
+        // console.log(err || data);
+        const getData = {
+            name: data.name,
+            dependencies: Object.assign({}, data.dependencies, data.devDependencies)
+        }
+       
+        listDependencies.push(getData)
+        // console.log(chalk.green(columnify(getData.dependencies, {columns: ['MODULE', 'Version']})))
+    }))
+    var datass = [
+            
+        {
+            packageName: chalk.red('react-native'),
+            galileo: '0.49.5',
+            authentication: '0.47.2',
+        },
+        {
+            packageName: 'react',
+            galileo: '0.36.0',
+            authentication: '0.40.0',
+        },
+    ]
 
-// // Takes the repo from GitHub
-// gitPackageJson("nuvipannu/ascii-heart", function (err, data) {
-//     console.log(err || data);
-//     // { name: 'ascii-heart',
-//     //   version: '2.0.0',
-//     //   description: 'Create ASCII hearts using Node.js.',
-//     //   main: 'lib/index.js',
-//     //   ...
-//     //   _id: 'ascii-heart@2.0.0' }
-// });
+    console.log(chalk.green(columnify(datass)))
+   //  console.log('listDependencies', listDependencies)
+}
 
-module.exports = gitPackageJson
+module.exports = checkVersion
+

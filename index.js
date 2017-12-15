@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-'use strict';
+'use strict'
 
 /**
 *
@@ -38,7 +38,7 @@ program
 program
   .command('check')
   .action(() => {
-    console.log()
+    checkVersion()
   })  
 
 program.parse(process.argv)
