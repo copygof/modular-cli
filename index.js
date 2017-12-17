@@ -36,7 +36,9 @@ program
     checkVersion()
   })  
 program
-  .command('check')
+  .command('check-depend')
+  .alias('cd')
+  .description('check different package dependencies of modular')
   .action(() => {
     checkVersion()
   })  
@@ -45,3 +47,6 @@ program.parse(process.argv)
 
 // when args is emtry or not match
 if (!program.args.length) printHeader(() => program.help())
+// if (!process.argv.slice(2).length) {
+//   printHeader(() => program.help())
+// }
