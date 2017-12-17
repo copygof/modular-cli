@@ -52,7 +52,7 @@ const checkVersion = () => {
                 fetchPackageJson(cur)
                 .then(pkg => [].concat(data, [pkg]))
                 .then((pkg) => {
-                    spinner.succeed([chalk.white('check-depend')+' '+chalk.green('modular')+' '+chalk.magenta(pkg[pkg.length - 1].name)])
+                    spinner.succeed([chalk.white('check-version-depend')+' '+chalk.green('modular')+' '+chalk.magenta(pkg[pkg.length - 1].name)])
                     i !== getPackage.length - 1
                     ? spinner.start()
                     : spinner.stop()
@@ -87,7 +87,6 @@ const checkVersion = () => {
         ))
         printResult(result)
     })
-    
 }
 
 module.exports = checkVersion

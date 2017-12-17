@@ -7,7 +7,7 @@ const setConfig = (module = []) => {
     'https://gitlab.com/copygof/cilnic-student.git#feature/stock',
     'https://gitlab.com/copygof/cilnic-student.git#feature/stock',
   ]
-  return [].concat(module, configModule)
+  return module.length ? module : configModule
 }
 
 module.exports = setConfig

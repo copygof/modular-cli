@@ -12,7 +12,8 @@
   "author": "Preecha Sattabut",
   "license": "ISC",
   "bin": {
-    "modular": "index.js"
+    "modular": "index.js",
+    "ml": "index.js"
   },
   "dependencies": {
     "chalk": "^2.3.0",

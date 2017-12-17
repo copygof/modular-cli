@@ -18,6 +18,7 @@ const inquirer = require("inquirer");
 const figlet = require('figlet');
 const { printHeader } = require('./common')
 const checkVersion = require('./feature/checkVersion')
+const updateVersion = require('./feature/updateVersion')
 // var prompt = inquirer.createPromptModule();
 
 /*----------- config ----------*/
@@ -33,14 +34,21 @@ program
   .command('init')
   .description('create new modular-kit project.')
   .action(() => {
+    log.info('comming soon....')
+  })  
+program
+  .command('check-version')
+  .alias('cv')
+  .description('check different version dependencies of modular')
+  .action(() => {
     checkVersion()
   })  
 program
-  .command('check-depend')
-  .alias('cd')
-  .description('check different package dependencies of modular')
+  .command('update-version')
+  .alias('uv')
+  .description('update version dependencies of modular')
   .action(() => {
-    checkVersion()
+    updateVersion()
   })  
 
 program.parse(process.argv)
