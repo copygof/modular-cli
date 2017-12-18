@@ -22,6 +22,7 @@
     "commander": "^2.12.2",
     "diff": "^3.4.0",
     "figlet": "^1.2.0",
+    "gift": "^0.10.1",
     "git-package-json": "^1.4.7",
     "git-source": "^1.1.7",
     "inquirer": "^4.0.1",

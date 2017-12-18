@@ -1,10 +1,10 @@
 const inquirer = require('inquirer')
 const setConfig = require('../../config/configModular.js')
-const { gitClone, findModularFromCurrentPath } = require('../../common')
+const { gitClone, findModularFromCurrentPath, Loading } = require('../../common')
 const pksList = require('../checkVersion/pkg-list-update-version.js')
 
 const getPackage = setConfig()
-const mapPathWithBranch = (pkgs, branch) => pkgs.map(v => v+'#'+branch)
+const mapPathWithBranch = (pkgs, branch) => pkgs.map(url => url.indexOf('#') !== -1 ? url.slice(0, url.indexOf('#') + 1)+branch : url+'#'+branch)
 
 const updateVersion = () => {
   const questions = {

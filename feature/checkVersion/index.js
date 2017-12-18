@@ -2,10 +2,11 @@ const gitPackageJson = require('git-package-json')
 const columnify = require('columnify')
 const chalk = require('chalk')
 const opn = require('opn')
+const ora = require('ora')
 const fs = require('fs')
 const inquirer = require('inquirer')
-const ora = require('ora');
 const npmlog = require('npmlog')
+const { Loading } = require('../../common.js')
 const setConfig = require('../../config/configModular.js')
 const { convertCallBackToPromise } = require('../../utils')
 const templateHtml = require('./template')
@@ -36,20 +37,21 @@ const printResult = (data) => {
     .then(() => opn(__dirname+'/report.html', {app: ['chrome']}))
 }
 
-const checkVersion = () => {
-    const getPackage = setConfig()
+
+
+const checkVersion = (getPackage = setConfig()) => {
+    // queue async fetch pkg
     const spinner = ora()
     spinner.start();
     spinner.spinner = {
         "interval": 80,
         "frames": ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
     }
-    // queue async fetch pkg
-    getPackage.reduce((prev, cur, i) => {
-        spinner.text = 'Fetching: '+cur
+    getPackage.reduce((prev, cur, i) => {        
         return (
-            prev.then(data => (
-                fetchPackageJson(cur)
+            prev.then(data => {
+                spinner.text = 'Fetching: '+cur
+                return fetchPackageJson(cur)
                 .then(pkg => [].concat(data, [pkg]))
                 .then((pkg) => {
                     spinner.succeed([chalk.white('check-version-depend')+' '+chalk.green('modular')+' '+chalk.magenta(pkg[pkg.length - 1].name)])
@@ -62,7 +64,7 @@ const checkVersion = () => {
                     spinner.fail(['Fail to fetch '+cur +' '+err])
                     return data
                 })
-            ))
+            })
         )
     }, Promise.resolve([]))
     .then(pkgs => {
@@ -88,7 +90,9 @@ const checkVersion = () => {
         const getPkgName = result.map(value => ({ [value[Object.keys(value)[0]]]: '' }))
         const writeFileJS = convertCallBackToPromise(fs.writeFile)
         const content = `module.exports = ${JSON.stringify(getPkgName)}`
+        const contents = `module.exports = ${JSON.stringify(result.map(value => value[Object.keys(value)[0]]))}`
         writeFileJS(__dirname+'/pkg-list-update-version.js', content,  'utf8')
+        writeFileJS(__dirname+'/listPackage.js', contents,  'utf8')
         return printResult(result)
     })
 }
