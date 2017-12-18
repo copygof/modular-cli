@@ -5,7 +5,7 @@ const opn = require('opn')
 const fs = require('fs')
 const inquirer = require('inquirer')
 const ora = require('ora');
-const npmlog = require('npmlog');
+const npmlog = require('npmlog')
 const setConfig = require('../../config/configModular.js')
 const { convertCallBackToPromise } = require('../../utils')
 const templateHtml = require('./template')
@@ -85,7 +85,11 @@ const checkVersion = () => {
             ), {})
             )
         ))
-        printResult(result)
+        const getPkgName = result.map(value => ({ [value[Object.keys(value)[0]]]: '' }))
+        const writeFileJS = convertCallBackToPromise(fs.writeFile)
+        const content = `module.exports = ${JSON.stringify(getPkgName)}`
+        writeFileJS(__dirname+'/pkg-list-update-version.js', content,  'utf8')
+        return printResult(result)
     })
 }
 

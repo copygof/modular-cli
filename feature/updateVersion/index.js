@@ -1,6 +1,7 @@
 const inquirer = require('inquirer')
 const setConfig = require('../../config/configModular.js')
 const { gitClone, findModularFromCurrentPath } = require('../../common')
+const pksList = require('../checkVersion/pkg-list-update-version.js')
 
 const getPackage = setConfig()
 const mapPathWithBranch = (pkgs, branch) => pkgs.map(v => v+'#'+branch)
@@ -68,3 +69,128 @@ const updateVersion = () => {
 }
 
 module.exports = updateVersion
+
+
+// module.exports = [{
+//   "Authentication": ""
+// }, {
+//   "Bank": ""
+// }, {
+//   "Galileo": ""
+// }, {
+//   "MarketPlace": ""
+// }, {
+//   "Notification": ""
+// }, {
+//   "Social": ""
+// }, {
+//   "biometrics": ""
+// }, {
+//   "js-money": ""
+// }, {
+//   "kyc": ""
+// }, {
+//   "lodash": ""
+// }, {
+//   "mascot": ""
+// }, {
+//   "md5": ""
+// }, {
+//   "moment": ""
+// }, {
+//   "normalizr": ""
+// }, {
+//   "prop-types": ""
+// }, {
+//   "ramda": ""
+// }, {
+//   "react": ""
+// }, {
+//   "react-native": ""
+// }, {
+//   "react-native-app-link": ""
+// }, {
+//   "react-native-camera": ""
+// }, {
+//   "react-native-check-box": ""
+// }, {
+//   "react-native-config": ""
+// }, {
+//   "react-native-datepicker": ""
+// }, {
+//   "react-native-device-info": ""
+// }, {
+//   "react-native-drawer": ""
+// }, {
+//   "react-native-fbsdk": ""
+// }, {
+//   "react-native-fetch-blob": ""
+// }, {
+//   "react-native-htmlview": ""
+// }, {
+//   "react-native-i18n": ""
+// }, {
+//   "react-native-image-resizer": ""
+// }, {
+//   "react-native-image-to-base64": ""
+// }, {
+//   "react-native-linear-gradient": ""
+// }, {
+//   "react-native-material-kit": ""
+// }, {
+//   "react-native-md-textinput": ""
+// }, {
+//   "react-native-permissions": ""
+// }, {
+//   "react-native-router-flux": ""
+// }, {
+//   "react-native-scale360-native-module": ""
+// }, {
+//   "react-native-view-shot": ""
+// }, {
+//   "react-redux": ""
+// }, {
+//   "redux": ""
+// }, {
+//   "redux-form": ""
+// }, {
+//   "redux-logger": ""
+// }, {
+//   "redux-persist": ""
+// }, {
+//   "redux-persist-transform-filter": ""
+// }, {
+//   "redux-thunk": ""
+// }, {
+//   "babel-eslint": ""
+// }, {
+//   "babel-jest": ""
+// }, {
+//   "babel-preset-react-native": ""
+// }, {
+//   "enzyme": ""
+// }, {
+//   "enzyme-adapter-react-16": ""
+// }, {
+//   "eslint": ""
+// }, {
+//   "eslint-config-airbnb-base": ""
+// }, {
+//   "eslint-plugin-import": ""
+// }, {
+//   "eslint-plugin-jsx-a11y": ""
+// }, {
+//   "eslint-plugin-react": ""
+// }, {
+//   "jest": ""
+// }, {
+//   "nock": ""
+// }, {
+//   "react-dom": ""
+// }, {
+//   "react-test-renderer": ""
+// }, {
+//   "redux-mock-store": ""
+// }, {
+//   "sherlockholmes": ""
+// }]
