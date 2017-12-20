@@ -19,6 +19,7 @@ const figlet = require('figlet');
 const { printHeader } = require('./common')
 const checkVersion = require('./feature/checkVersion')
 const updateVersion = require('./feature/updateVersion')
+const updatePackage = require('./feature/updatePackage')
 // var prompt = inquirer.createPromptModule();
 
 /*----------- config ----------*/
@@ -50,6 +51,15 @@ program
   .action(() => {
     updateVersion()
   })  
+
+program
+  .command('update-package')
+  .alias('up')
+  .description('update version dependencies of modular')
+  .action(() => {
+    updatePackage()
+  })  
+
 
 program.parse(process.argv)
 

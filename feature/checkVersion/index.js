@@ -6,13 +6,16 @@ const ora = require('ora')
 const fs = require('fs')
 const inquirer = require('inquirer')
 const npmlog = require('npmlog')
+const ColorScheme = require('color-scheme')
 const { Loading } = require('../../common.js')
 const setConfig = require('../../config/configModular.js')
 const { convertCallBackToPromise } = require('../../utils')
 const templateHtml = require('./template')
 
 const fetchPackageJson = convertCallBackToPromise(gitPackageJson)
-
+const scheme = new ColorScheme;
+scheme.from_hue(21).scheme('triade').variation('soft')
+const color = scheme.colors();
 
 const printResult = (data) => {
     // if modular more than 6 then open report from browser
@@ -22,11 +25,32 @@ const printResult = (data) => {
             ${Object.keys(value).map(k => `<td style="color: #03a9f4; border: 1px solid #19536f">${k}</td>`).join('')}
         </tr>
     `)).join('')
-    const tbody = data.map(value => (`
+
+
+    const colors = [
+        '#A7A1AE',
+        // '#323c50',
+        // '#46aadb',
+        '#fcd000',
+        '#ff3c41',
+        '#E8720C',
+        '#A00CE8',
+    ].concat(color)
+        
+    
+    const tbody = data.map(value => {
+        const tempKeys = Object.keys(value).slice(1).map(v => value[v]).reduce((prev, cur) => prev.some(v => v === cur) ? prev : prev.concat([cur]), [])
+        const tempKeysWithColor = tempKeys.filter(v => v !== '-').reduce((prev, cur) => (
+            Object.assign({}, prev, {
+                [cur]: colors.reduce((p, c) => (Object.keys(prev).some(v => prev[v] === c) ? p : p.concat([c])), [])[0]
+            })
+        ), {})
+        return (`
         <tr>
-            ${Object.keys(value).map((k, i) => `<td style="color:  ${i === 0 ? '#46aadb' : '#A7A1AE'}; border: 1px solid #19536f;">${value[k]}</td>`).join('')}
+            ${Object.keys(value).map((k, i) => `<td style="color:  ${i === 0 ? '#46aadb' : tempKeysWithColor[value[k]] || '#A7A1AE'}; border: 1px solid #19536f;">${value[k]}</td>`).join('')}
         </tr>
-    `)).join('')
+    `)
+    }).join('')
     // is-bordered is-striped is-narrow is-fullwidth
     writeReportHtml(__dirname+'/report.html', templateHtml((`
         <table class="table is-bordered" style="background-color: #1F2739;">
